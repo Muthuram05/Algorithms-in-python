@@ -1,24 +1,64 @@
 class sorting():
-    def bubbleSort(self,arr):
-        n = len(arr)
+    def __init__(self,arr):
+        self.arr = arr
+    
+    def bubbleSort(self):
+        n = len(self.arr)
         swapped = False
         for i in range(n-1):
             for j in range(0, n-i-1):
-                if arr[j] > arr[j + 1]:
+                if self.arr[j] > self.arr[j + 1]:
                     swapped = True
-                    arr[j], arr[j + 1] = arr[j + 1], arr[j]           
+                    self.arr[j], self.arr[j + 1] = self.arr[j + 1], self.arr[j]           
             if not swapped:
                 return
-        return arr
-    def insertionSort(self,arr):
-        for i in range(1, len(arr)): 
-            key = arr[i]
-            j = i-1
-            while j >= 0 and key < arr[j] :
-                    arr[j + 1] = arr[j]
-                    j -= 1
-            arr[j + 1] = key
-        return arr
+        return self.arr
 
+    def insertionSort(self):
+        for i in range(1, len(self.arr)): 
+            key = self.arr[i]
+            j = i-1
+            while j >= 0 and key < self.arr[j] :
+                    self.arr[j + 1] = self.arr[j]
+                    j -= 1
+            self.arr[j + 1] = key
+        return self.arr
+    def mergeSort(self):
+        if len(self.arr) > 1:
+            r = len(self.arr)//2
+            L = self.arr[:r]
+            M = self.arr[r:]
+            sorting.mergeSort(L)
+            sorting.mergeSort(M)
+            i = j = k = 0
+            while i < len(L) and j < len(M):
+                if L[i] < M[j]:
+                    self.arr[k] = L[i]
+                    i += 1
+                else:
+                    self.arr[k] = M[j]
+                    j += 1
+                k += 1
+            while i < len(L):
+                self.arr[k] = L[i]
+                i += 1
+                k += 1
+
+            while j < len(M):
+                self.arr[k] = M[j]
+                j += 1
+                k += 1
+        return self.arr
+    def selection(self):
+        for i in range(len(self.arr)):
+            min_idx = i
+            for j in range(i+1, len(self.arr)):
+                if self.arr[min_idx] > self.arr[j]:
+                    min_idx = j
+            self.arr[i], self.arr[min_idx] = self.arr[min_idx], self.arr[i]
+        return self.arr
+    
 if __name__ == "__main__":
-    detector = sorting()
+    abcd = [6,5,4,3,2,1]
+    detector = sorting(abcd)
+    print(detector.selection())
